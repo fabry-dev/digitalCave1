@@ -22,6 +22,7 @@ private:
     int id;
     QRect hideGeo,showGeo;
     QPropertyAnimation *showAnim,*hideAnim;
+    QPropertyAnimation *zoomOut,*zoomIn;
     bool zoomOnClick;
 
 public slots:

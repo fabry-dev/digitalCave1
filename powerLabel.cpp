@@ -18,6 +18,14 @@ powerLabel::powerLabel(QLabel *parent, int id, QRect hideGeo, QRect showGeo,bool
     connect(hideAnim,SIGNAL(finished()),this,SLOT(hide()));
     connect(hideAnim,SIGNAL(finished()),this,SIGNAL(hideAnimationOver()));
 
+
+    zoomIn = new QPropertyAnimation(this,"geometry");
+    zoomIn->setDuration(100);
+    zoomIn->setEasingCurve(QEasingCurve::InCurve);
+
+    zoomOut = new QPropertyAnimation(this,"geometry");
+    zoomOut->setDuration(100);
+    zoomOut->setEasingCurve(QEasingCurve::InCurve);
 }
 
 int powerLabel::getId() const
@@ -28,11 +36,20 @@ int powerLabel::getId() const
 
 void powerLabel::mousePressEvent(QMouseEvent *ev)
 {
+    if(hideAnim->state() == QAbstractAnimation::Running)
+        return;
+    if(showAnim->state() == QAbstractAnimation::Running)
+        return;
+    if(zoomIn->state() == QAbstractAnimation::Running)
+        return;
+    if(zoomOut->state() == QAbstractAnimation::Running)
+        return;
+
+
     if(zoomOnClick)
     {
-        QPropertyAnimation *zoomIn = new QPropertyAnimation(this,"geometry");
-        zoomIn->setDuration(100);
-        zoomIn->setEasingCurve(QEasingCurve::InCurve);
+
+
         zoomIn->setStartValue(this->geometry());
         int centerX = x()+width()/2;
         int centerY = y()+height()/2;
@@ -41,14 +58,11 @@ void powerLabel::mousePressEvent(QMouseEvent *ev)
         zoomIn->setEndValue(QRect(centerX-nuWidth/2,centerY-nuHeight/2,nuWidth,nuHeight));
 
 
-        QPropertyAnimation *zoomOut = new QPropertyAnimation(this,"geometry");
-        zoomOut->setDuration(100);
-        zoomOut->setEasingCurve(QEasingCurve::InCurve);
+
         zoomOut->setEndValue(this->geometry());
         zoomOut->setStartValue(QRect(centerX-nuWidth/2,centerY-nuHeight/2,nuWidth,nuHeight));
 
         connect(zoomIn,SIGNAL(finished()),zoomOut,SLOT(start()));
-        connect(zoomOut,SIGNAL(finished()),zoomOut,SLOT(deleteLater()));
         connect(zoomOut,SIGNAL(finished()),this,SIGNAL(clicked()));
 
 
@@ -56,8 +70,8 @@ void powerLabel::mousePressEvent(QMouseEvent *ev)
 
 
 
-       // connect(zoomIn,SIGNAL(finished()),this,SLOT(hide()));
-        zoomIn->start(QAbstractAnimation::DeleteWhenStopped);
+        // connect(zoomIn,SIGNAL(finished()),this,SLOT(hide()));
+        zoomIn->start(QAbstractAnimation::KeepWhenStopped);
 
     }
     else
