@@ -97,9 +97,12 @@ int main(int argc, char *argv[])
 
 
 
-    a.connect(socket,SIGNAL(startVideo()),ls,SLOT(startVideo()));
-    a.connect(socket,SIGNAL(stopVideo()),ls,SLOT(stopVideo()));
+    a.connect(socket,SIGNAL(startVideo()),ts,SLOT(startIntroVideo()));
+    a.connect(socket,SIGNAL(stopVideo()),ts,SLOT(stopIntroVideo()));
 
+
+    a.connect(socket,SIGNAL(startVideo()),ls,SLOT(startIntroVideo()));
+    a.connect(socket,SIGNAL(stopVideo()),ls,SLOT(stopIntroVideo()));
 
     return a.exec();
 

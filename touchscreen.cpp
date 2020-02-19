@@ -17,6 +17,16 @@ touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PAT
     connect(this,SIGNAL(bgShouldRestart()),bgVp,SLOT(rewind()));
 
 
+    introVp = new mpvWidget(this);
+    introVp->resize(size());
+    introVp->setProperty("keep-open","yes");
+    introVp->setLoop(false);
+    introVp->lower();
+    introVp->setMute(true);
+    introVp->show();
+
+
+
     QLabel *iktvaLbl = new QLabel(this);
     QImage iktva(PATH+"iktva.png");
     iktvaLbl->resize(iktva.size());
@@ -98,7 +108,27 @@ void touchScreen::loadPlayer()
     bgVp->lower();
     bgVp->loadFilePaused(PATH+"touchBg1.mp4");
     bgVp->play();
+
+    introVp->loadFilePaused(PATH+"touchIntro1.mp4");
 }
+
+
+void touchScreen::startIntroVideo()
+{
+    introVp->playAndRaise();
+    introVp->raise();
+
+}
+
+void touchScreen::stopIntroVideo()
+{
+    introVp->lower();
+    introVp->pause();
+    introVp->rewind();
+}
+
+
+
 
 
 void touchScreen::showSummary()

@@ -18,7 +18,7 @@ public:
 
 private:
     QString PATH;
-    mpvWidget *bgVp;
+    mpvWidget *bgVp,*introVp;
     alphaVideo *alphaVp;
 
 
@@ -38,6 +38,8 @@ private slots:
     void showContent(void);
     void hideContent(void);
     void goBack(void);
+    void startIntroVideo(void);
+    void stopIntroVideo(void);
 signals:
     void bgShouldRestart(void);
 
