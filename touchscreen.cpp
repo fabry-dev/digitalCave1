@@ -105,7 +105,7 @@ touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PAT
 
 void touchScreen::loadPlayer()
 {
-    bgVp->lower();
+
     bgVp->loadFilePaused(PATH+"touchBg1.mp4");
     bgVp->play();
 
