@@ -3,6 +3,7 @@
 #include "qdebug.h"
 
 
+#define TIMEOUT_DELAY 30*1000
 
 touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PATH)
 {
@@ -98,8 +99,14 @@ touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PAT
     connect(backLbl,SIGNAL(clicked()),this,SLOT(goBack()));
     connect(backLbl,SIGNAL(hideAnimationOver()),this,SLOT(showSummary()));
 
+
+    timeOutTimer = new QTimer(this);
+    connect(timeOutTimer,SIGNAL(timeout()),this,SLOT(hideContent()));
+
     showSummary();
 }
+
+
 
 
 
@@ -136,6 +143,8 @@ void touchScreen::showSummary()
     for(auto b:buttons)
         b->animateShow();
     summaryLbl->animateShow();
+
+    timeOutTimer->stop();
 }
 
 void touchScreen::hideSummary()
@@ -154,7 +163,7 @@ void touchScreen::selectContent(int contentId)
     hideSummary();
 
 
-
+    timeOutTimer->start(TIMEOUT_DELAY);
 }
 
 

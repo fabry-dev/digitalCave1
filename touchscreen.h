@@ -29,6 +29,7 @@ private:
     powerLabel *backLbl;
     int nextContent;
 
+    QTimer *timeOutTimer;
 private slots:
     void loadPlayer(void);
     void showSummary(void);
@@ -40,6 +41,7 @@ private slots:
     void goBack(void);
     void startIntroVideo(void);
     void stopIntroVideo(void);
+
 signals:
     void bgShouldRestart(void);
 
