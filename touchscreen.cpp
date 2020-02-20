@@ -14,7 +14,7 @@ touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PAT
     bgVp->setLoop(false);
     bgVp->show();
 
-    connect(this,SIGNAL(bgShouldRestart()),bgVp,SLOT(rewind()));
+    connect(this,SIGNAL(bgShouldRestart()),bgVp,SLOT(rewindAndPlay()));
 
 
     introVp = new mpvWidget(this);

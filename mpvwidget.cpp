@@ -87,10 +87,19 @@ void mpvWidget::loadFilePaused(QString videoFile)
 
 void mpvWidget::rewind(void)
 {
-    //qDebug()<<"rewind";
+
     command(QStringList()<< "seek"<<"0"<<"absolute"<<"exact");
 
 }
+
+
+void mpvWidget::rewindAndPlay(void)
+{
+
+    command(QStringList()<< "seek"<<"0"<<"absolute"<<"exact");
+    setProperty("pause",false);
+}
+
 
 void mpvWidget::stop()
 {
