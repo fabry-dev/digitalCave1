@@ -10,6 +10,7 @@
 #include "alphaVideoPlayer.h"
 #include "QPropertyAnimation"
 #include "powerLabel.h"
+#include "animation.h"
 class touchScreen : public QLabel
 {
     Q_OBJECT
@@ -30,6 +31,7 @@ private:
     int nextContent;
 
     QTimer *timeOutTimer;
+    animation *anim3;
 private slots:
     void loadPlayer(void);
     void showSummary(void);

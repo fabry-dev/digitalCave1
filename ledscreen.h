@@ -9,6 +9,7 @@
 #include "alphaVideoPlayer.h"
 #include "qtimer.h"
 #include "yearbuttons.h"
+#include "animation.h"
 
 class ledScreen : public QLabel
 {

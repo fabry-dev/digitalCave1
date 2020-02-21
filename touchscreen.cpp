@@ -77,8 +77,19 @@ touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PAT
         int titleY = (height())/5-pix0.height()/2;
         int contentY =(height()-pix1.height())/2;
         originY = (backY + contentY +titleY)/3;
-        powerLabel *c0 = new powerLabel(this,i,QRect(width()/2,originY,0,0),QRect((width()-pix0.width())/2,titleY,pix0.width(),pix0.height()));
-        powerLabel *c1 = new powerLabel(this,i,QRect(width()/2,originY,0,0),QRect((width()-pix1.width())/2,contentY,pix1.width(),pix1.height()));
+
+        QRect geoOrigin = QRect(width()/2,originY,0,0);
+        QRect geoTitle = QRect((width()-pix0.width())/2,titleY,pix0.width(),pix0.height());
+        QRect geoContent = QRect((width()-pix1.width())/2,contentY,pix1.width(),pix1.height());
+        if(i==3)
+        {
+            geoOrigin = QRect(width()/2,originY,0,0);
+            geoTitle = QRect((width()-pix0.width())/2,titleY-150,pix0.width(),pix0.height());
+            geoContent = QRect((width()-pix1.width())/2,contentY-200,pix1.width(),pix1.height());
+        }
+
+        powerLabel *c0 = new powerLabel(this,i,geoOrigin,geoTitle);
+        powerLabel *c1 = new powerLabel(this,i,geoOrigin,geoContent);
 
         c0->hide();
         c0->setPixmap(pix0);
@@ -90,6 +101,13 @@ touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PAT
         c1->setScaledContents(true);
         contentFrames.push_back(c1);
     }
+
+    anim3 = new animation(this,PATH,QRect(width()/2,0,0,0),QRect(0,1000,1080,500));
+    connect(contentTitles[3],SIGNAL(showAnimationOver()),anim3,SLOT(start()));
+
+    anim3->hide();
+
+
 
     QPixmap pix(PATH+"back.png");
     backLbl = new powerLabel(this,0,QRect(width()/2,originY,0,0),QRect((width()-pix.width())/2,backY,pix.width(),pix.height()),true);
@@ -103,7 +121,8 @@ touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PAT
     timeOutTimer = new QTimer(this);
     connect(timeOutTimer,SIGNAL(timeout()),this,SLOT(hideContent()));
 
-    showSummary();
+    //showSummary();
+    selectContent(3);
 }
 
 
@@ -177,6 +196,9 @@ void touchScreen::showContent()
     contentFrames[nextContent]->animateShow();
     contentTitles[nextContent]->animateShow();
     backLbl->animateShow();
+
+
+
 }
 
 void touchScreen::hideContent()
@@ -189,6 +211,9 @@ void touchScreen::hideContent()
         if(c->isVisible())
             c->animateHide();
 
+
+    if(anim3->isVisible())
+        anim3->animateHide();
     backLbl->animateHide();
 }
 

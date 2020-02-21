@@ -17,6 +17,7 @@ public:
 signals:
     void clicked();
     void hideAnimationOver(void);
+    void showAnimationOver(void);
 
 private:
     int id;

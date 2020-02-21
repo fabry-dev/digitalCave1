@@ -37,6 +37,8 @@ ledScreen::ledScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PATH)
 
 
 
+
+
   /*  QLabel *touchLbl = new QLabel(this);
     touchLbl->resize(1080*Touch2Led,1920*Touch2Led);
     touchLbl->move((width()-touchLbl->width())/2,(height()-touchLbl->height())/2);

@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     touchscreen.cpp \
     ledscreen.cpp \
     udplistener.cpp \
-    powerLabel.cpp
+    powerLabel.cpp \
+    animation.cpp
 
 
 HEADERS  += \
@@ -35,7 +36,8 @@ HEADERS  += \
     ledscreen.h \
     udplistener.h \
     powerLabel \
-    powerLabel.h
+    powerLabel.h \
+    animation.h
 
 
 FORMS    +=

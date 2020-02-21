@@ -9,6 +9,7 @@ powerLabel::powerLabel(QLabel *parent, int id, QRect hideGeo, QRect showGeo,bool
     showAnim->setEasingCurve(QEasingCurve::InCurve);
     showAnim->setStartValue(hideGeo);
     showAnim->setEndValue(showGeo);
+    connect(showAnim,SIGNAL(finished()),this,SIGNAL(showAnimationOver()));
 
     hideAnim = new QPropertyAnimation(this,"geometry");
     hideAnim->setDuration(400);
