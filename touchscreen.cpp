@@ -121,8 +121,8 @@ touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PAT
     timeOutTimer = new QTimer(this);
     connect(timeOutTimer,SIGNAL(timeout()),this,SLOT(hideContent()));
 
-    //showSummary();
-    selectContent(3);
+    showSummary();
+
 }
 
 
