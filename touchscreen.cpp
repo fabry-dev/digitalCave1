@@ -102,7 +102,7 @@ touchScreen::touchScreen(QLabel *parent, QString PATH) : QLabel(parent),PATH(PAT
         contentFrames.push_back(c1);
     }
 
-    anim3 = new animation(this,PATH,QRect(width()/2,0,0,0),QRect(0,1000,1080,500));
+    anim3 = new animation(this,PATH,QRect(width()/2,0,0,0),QRect(0,1000,1080,600));
     connect(contentTitles[3],SIGNAL(showAnimationOver()),anim3,SLOT(start()));
 
     anim3->hide();
